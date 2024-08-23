@@ -3,14 +3,17 @@ import { Card } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 import { events } from "@/data/events";
+import Link from "next/link";
 
 export default function EventsPage() {
   return (
     <div className="max-w-4xl mx-auto p-6 sm:p-10">
       <div className="flex flex-col gap-8">
         {events.map((event) => (
-          <Card className="flex shadow transition-all hover:shadow-lg dark:shadow-black border-input ">
-            <div key={event.id} className="grid gap-4 p-4">
+          <Link href={`/events/${event.id}`} key={event.id}>
+
+          <Card  className="flex shadow transition-all hover:shadow-lg dark:shadow-black border-input ">
+            <div className="grid gap-4 p-4">
               <div className="grid gap-2">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <CalendarIcon className="w-5 h-5" />
@@ -37,6 +40,7 @@ export default function EventsPage() {
               />
             </div>
           </Card>
+          </Link>
         ))}
       </div>
     </div>

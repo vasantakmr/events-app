@@ -9,8 +9,8 @@ export default function EventsPage() {
     <div className="max-w-4xl mx-auto p-6 sm:p-10">
       <div className="flex flex-col gap-8">
         {events.map((event) => (
-          <Card className="flex shadow transition-all hover:shadow-lg dark:shadow-black border-input ">
-            <div key={event.id} className="grid gap-4 p-4">
+          <Card key={event.id} className="flex shadow transition-all hover:shadow-lg dark:shadow-black border-input ">
+            <div className="grid gap-4 p-4">
               <div className="grid gap-2">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <CalendarIcon className="w-5 h-5" />
