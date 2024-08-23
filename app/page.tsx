@@ -26,7 +26,7 @@ export default function EventsPage() {
                 <span>{event.location}</span>
               </div>
             </div>
-            <div className="p-5">
+            <div className="p-3 sm:p-5 w-96">
               <Image
                 src="/youtube.jpg"
                 alt={event.location}
