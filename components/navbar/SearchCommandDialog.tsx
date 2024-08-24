@@ -52,7 +52,7 @@ export function SearchCommandDialog() {
           setOpen(true);
         }}
       >
-        <span className="text-sm absolute left-2.5 top-2.5 h-4  text-muted-foreground">
+        <span className="text-sm absolute left-2.5 top-2.5 h-4  text-muted-foreground text-nowrap">
           Press{" "}
           <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
             <span className="text-xs">⌘</span>/
@@ -82,10 +82,12 @@ export function SearchCommandDialog() {
                 <span>Open Discover</span>
               </CommandItem>
             </Link>
-            <CommandItem onSelect={() => setOpen(false)}>
-              <SquarePlus className="mr-2 h-4 w-4" />
-              <span>Create Event</span>
-            </CommandItem>
+            <Link href="/create">
+              <CommandItem onSelect={() => setOpen(false)}>
+                <SquarePlus className="mr-2 h-4 w-4" />
+                <span>Create Event</span>
+              </CommandItem>
+            </Link>
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading="Settings">

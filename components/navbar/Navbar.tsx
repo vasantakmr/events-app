@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CircleUser, Package2, Menu } from "lucide-react";
+import { CircleUser, Package2, Menu, CirclePlus } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -50,27 +50,27 @@ export function Navbar() {
                 <Package2 className="h-6 w-6" />
                 <span className="sr-only">Gurucodes Inc</span>
               </Link>
-              <NavbarItem href="/">
-                Home
-              </NavbarItem>
+              <NavbarItem href="/">Home</NavbarItem>
 
-              <NavbarItem
-                href="/events"
-              >
-                Events
-              </NavbarItem>
-              <NavbarItem
-                href="/discover"
-              >
-                Discover
-              </NavbarItem>
-             
+              <NavbarItem href="/events">Events</NavbarItem>
+              <NavbarItem href="/discover">Discover</NavbarItem>
             </nav>
           </SheetContent>
         </Sheet>
         <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-          <form className="ml-auto flex-1 sm:flex-initial">
-            <div className="relative">
+          <form className="ml-auto flex gap-4 md:gap-2 lg:gap-4 flex-1 sm:flex-initial">
+            <div className="ml-auto ">
+              <NavbarItem href="/create">
+                <Button
+                  variant="outline"
+                  className="w-full justify-end text-left font-normal"
+                >
+                  <CirclePlus className="mr-1 h-4 w-4 -translate-x-1" />
+                  Create Event
+                </Button>
+              </NavbarItem>
+            </div>
+            <div className="relative overflow-hidden">
               <SearchCommandDialog />
             </div>
           </form>
