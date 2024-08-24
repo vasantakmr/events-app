@@ -10,6 +10,7 @@ import { Calendar } from "@/components/ui/calendar";
 import ImageUpload from "@/components/events/ImageUpload";
 
 export default function Component() {
+    
   return (
     <div className="max-w-4xl mx-auto p-6 sm:p-8 md:p-10">
       <header className="mb-8">
@@ -25,7 +26,7 @@ export default function Component() {
               <label htmlFor="name" className="text-sm font-medium">
                 Event Name
               </label>
-              <Input id="name" placeholder="Enter event name" />
+              <Input id="name" className="text-3xl font-semibold py-7" placeholder="Enter event name" />
             </div>
             <div className="grid gap-2">
               <label htmlFor="description" className="text-sm font-medium">
@@ -179,27 +180,6 @@ function ClockIcon(props: any) {
     >
       <circle cx="12" cy="12" r="10" />
       <polyline points="12 6 12 12 16 14" />
-    </svg>
-  );
-}
-
-function ImageIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-      <circle cx="9" cy="9" r="2" />
-      <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
     </svg>
   );
 }
