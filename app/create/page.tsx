@@ -1,14 +1,13 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/zmt61g1oSgZ
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
-import { Calendar } from "@/components/ui/calendar"
-import ImageUpload from "@/components/events/ImageUpload"
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import ImageUpload from "@/components/events/ImageUpload";
 
 export default function Component() {
   return (
@@ -21,20 +20,24 @@ export default function Component() {
           <ImageUpload />
         </div>
         <div className="grid col-span-2 gap-4">
-            <div className="grid gap-2">
-            <div className="grid gap-2">
-            <label htmlFor="name" className="text-sm font-medium">
-              Event Name
-            </label>
-            <Input id="name" placeholder="Enter event name" />
-          </div>
           <div className="grid gap-2">
-            <label htmlFor="description" className="text-sm font-medium">
-              Event Description
-            </label>
-            <Textarea id="description" rows={4} placeholder="Enter event description" />
-          </div>
+            <div className="grid gap-2">
+              <label htmlFor="name" className="text-sm font-medium">
+                Event Name
+              </label>
+              <Input id="name" placeholder="Enter event name" />
             </div>
+            <div className="grid gap-2">
+              <label htmlFor="description" className="text-sm font-medium">
+                Event Description
+              </label>
+              <Textarea
+                id="description"
+                rows={4}
+                placeholder="Enter event description"
+              />
+            </div>
+          </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
               <label htmlFor="start-date" className="text-sm font-medium">
@@ -42,7 +45,10 @@ export default function Component() {
               </label>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-start text-left font-normal">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start text-left font-normal"
+                  >
                     <CalendarDaysIcon className="mr-1 h-4 w-4 -translate-x-1" />
                     Pick a date
                   </Button>
@@ -58,7 +64,10 @@ export default function Component() {
               </label>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-start text-left font-normal">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start text-left font-normal"
+                  >
                     <ClockIcon className="mr-1 h-4 w-4 -translate-x-1" />
                     Pick a time
                   </Button>
@@ -76,7 +85,10 @@ export default function Component() {
               </label>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-start text-left font-normal">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start text-left font-normal"
+                  >
                     <CalendarDaysIcon className="mr-1 h-4 w-4 -translate-x-1" />
                     Pick a date
                   </Button>
@@ -92,7 +104,10 @@ export default function Component() {
               </label>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-start text-left font-normal">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start text-left font-normal"
+                  >
                     <ClockIcon className="mr-1 h-4 w-4 -translate-x-1" />
                     Pick a time
                   </Button>
@@ -109,16 +124,18 @@ export default function Component() {
             </label>
             <Input id="location" placeholder="Enter event location" />
           </div>
+          <div className="flex w-full justify-end mt-8">
+            <Button type="submit" className="w-full">
+              Create Event
+            </Button>
+          </div>
         </div>
       </form>
-      <div className="flex justify-end mt-8">
-        <Button type="submit">Create Event</Button>
-      </div>
     </div>
-  )
+  );
 }
 
-function CalendarDaysIcon(props:any) {
+function CalendarDaysIcon(props: any) {
   return (
     <svg
       {...props}
@@ -143,11 +160,10 @@ function CalendarDaysIcon(props:any) {
       <path d="M12 18h.01" />
       <path d="M16 18h.01" />
     </svg>
-  )
+  );
 }
 
-
-function ClockIcon(props:any) {
+function ClockIcon(props: any) {
   return (
     <svg
       {...props}
@@ -164,11 +180,10 @@ function ClockIcon(props:any) {
       <circle cx="12" cy="12" r="10" />
       <polyline points="12 6 12 12 16 14" />
     </svg>
-  )
+  );
 }
 
-
-function ImageIcon(props:any) {
+function ImageIcon(props: any) {
   return (
     <svg
       {...props}
@@ -186,5 +201,5 @@ function ImageIcon(props:any) {
       <circle cx="9" cy="9" r="2" />
       <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
     </svg>
-  )
+  );
 }

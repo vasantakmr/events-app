@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Aperture, Image as ImageIcon, ImagePlus } from "lucide-react";
+import { ImagePlus } from "lucide-react";
 
 import React, { useState, useRef } from "react";
 
@@ -34,7 +34,7 @@ function ImageUpload() {
           onChange={(e) => setSelectedImage(e.target.files![0])}
           style={{ display: "none" }}
         />
-        <ImagePlus  className="absolute h-10 w-10 bottom-3 right-3 p-2 bg-blue-500 rounded-full hover:bg-blue-600" />
+        <ImagePlus color="white" className="absolute h-10 w-10 bottom-3 right-3 p-2 bg-blue-500 rounded-full hover:bg-blue-600" />
       </div>
     </div>
   );
