@@ -12,21 +12,9 @@ import ImageUpload from "@/components/events/ImageUpload";
 import { useState } from "react";
 import DateSelector from "@/components/other/DateSelector";
 import TimeslotSelector from "@/components/other/TimeslotSelector";
-
-interface FormData {
-  title: string;
-  description: string;
-  shortDescription?: string;
-  userID?: string;
-  companyID?: string;
-  eventlocation: string;
-  startDate: Date | null;
-  endDate: Date | null;
-  image?: string;
-  theme?: string;
-  usersCapacity?: number;
-  eventType?: string;
-}
+import { prisma } from "@/lib/prisma";
+import { createEvent } from "../api/createEvent";
+import { FormData } from "@/lib/types";
 
 export default function Component() {
   const [formData, setFormData] = useState<FormData>({
@@ -57,7 +45,6 @@ export default function Component() {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const formValues: FormData = { ...formData };
-    console.log(formValues);
   };
 
   return (
@@ -97,7 +84,7 @@ export default function Component() {
                 rows={4}
                 placeholder="Enter event description"
                 value={formData.description}
-                onChange={handleChange}
+                onChange={(event) => createEvent(formData, event)}
               />
             </div>
           </div>
@@ -135,7 +122,7 @@ export default function Component() {
             </label>
             <Input
               id="location"
-              name="location"
+              name="eventlocation"
               placeholder="Enter event location"
               value={formData.eventlocation}
               onChange={handleChange}
