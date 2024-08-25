@@ -11,7 +11,7 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ["firebasestorage.googleapis.com"], // Add your Firebase Storage bucket here
+    domains: ["firebasestorage.googleapis.com", "cloudinary.com"], // Add your Firebase Storage bucket here
   },
 };
 

@@ -16,7 +16,7 @@ import { prisma } from "@/lib/prisma";
 import { createEvent } from "../api/createEvent";
 import { FormData } from "@/lib/types";
 
-export default function Component() {
+export default function CreatePage() {
   const [formData, setFormData] = useState<FormData>({
     title: "",
     description: "",
