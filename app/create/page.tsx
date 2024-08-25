@@ -1,3 +1,4 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,15 +9,59 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import ImageUpload from "@/components/events/ImageUpload";
+import { useState } from "react";
+import DateSelector from "@/components/other/DateSelector";
+import TimeslotSelector from "@/components/other/TimeslotSelector";
+
+interface FormData {
+  title: string;
+  description: string;
+  startDate: Date | null;
+  endDate: Date | null;
+  location: string;
+}
 
 export default function Component() {
-    
+  const [formData, setFormData] = useState<FormData>({
+    title: "",
+    description: "",
+    startDate: null,
+    endDate: null,
+    location: "",
+  });
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleDateChange = (date: Date | null, name: string) => {
+    setFormData({
+      ...formData,
+      [name]: date,
+    });
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    const formValues: FormData = { ...formData };
+    console.log(formValues);
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-6 sm:p-8 md:p-10">
       <header className="mb-8">
         <h1 className="text-3xl font-bold">Create New Event</h1>
       </header>
-      <form className="grid grid-cols-1 md:grid-cols-3 gap-y-6 md:gap-6">
+      <form
+        className="grid grid-cols-1 md:grid-cols-3 gap-y-6 md:gap-6"
+        onSubmit={handleSubmit}
+      >
         <div className="grid gap-4">
           <ImageUpload />
         </div>
@@ -26,7 +71,14 @@ export default function Component() {
               <label htmlFor="name" className="text-sm font-medium">
                 Event Name
               </label>
-              <Input id="name" className="text-3xl font-semibold py-7" placeholder="Enter event name" />
+              <Input
+                id="name"
+                name="title"
+                className="text-3xl font-semibold py-7"
+                placeholder="Enter event name"
+                value={formData.title}
+                onChange={handleChange}
+              />
             </div>
             <div className="grid gap-2">
               <label htmlFor="description" className="text-sm font-medium">
@@ -34,8 +86,11 @@ export default function Component() {
               </label>
               <Textarea
                 id="description"
+                name="description"
                 rows={4}
                 placeholder="Enter event description"
+                value={formData.description}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -44,39 +99,13 @@ export default function Component() {
               <label htmlFor="start-date" className="text-sm font-medium">
                 Start Date/Time
               </label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start text-left font-normal"
-                  >
-                    <CalendarDaysIcon className="mr-1 h-4 w-4 -translate-x-1" />
-                    Pick a date
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar mode="single" initialFocus />
-                </PopoverContent>
-              </Popover>
+              <DateSelector name="startDate" onChange={handleDateChange} />
             </div>
             <div className="grid gap-2">
               <label htmlFor="start-time" className="text-sm font-medium">
                 Start Time
               </label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start text-left font-normal"
-                  >
-                    <ClockIcon className="mr-1 h-4 w-4 -translate-x-1" />
-                    Pick a time
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <div />
-                </PopoverContent>
-              </Popover>
+              <TimeslotSelector />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -84,46 +113,26 @@ export default function Component() {
               <label htmlFor="end-date" className="text-sm font-medium">
                 End Date
               </label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start text-left font-normal"
-                  >
-                    <CalendarDaysIcon className="mr-1 h-4 w-4 -translate-x-1" />
-                    Pick a date
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar mode="single" initialFocus />
-                </PopoverContent>
-              </Popover>
+              <DateSelector name="endDate" onChange={handleDateChange} />
             </div>
             <div className="grid gap-2">
               <label htmlFor="end-time" className="text-sm font-medium">
                 End Time
               </label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start text-left font-normal"
-                  >
-                    <ClockIcon className="mr-1 h-4 w-4 -translate-x-1" />
-                    Pick a time
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <div />
-                </PopoverContent>
-              </Popover>
+              <TimeslotSelector />
             </div>
           </div>
           <div className="grid gap-2">
             <label htmlFor="location" className="text-sm font-medium">
               Location
             </label>
-            <Input id="location" placeholder="Enter event location" />
+            <Input
+              id="location"
+              name="location"
+              placeholder="Enter event location"
+              value={formData.location}
+              onChange={handleChange}
+            />
           </div>
           <div className="flex w-full justify-end mt-8">
             <Button type="submit" className="w-full">
