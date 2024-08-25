@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// * Ignore User for now and 
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+  username String?
+}
+
+// TODO: We should have a company table to add the Company ID as forieng key 
+model Event {
+  id                String @id @default(uuid())
+  email             String? @unique
+  name              String?
+  description       String?
+  shortDescription  String?
+  userID            String?
+  companyID         String?
+  eventlocation     String?
+  startTime         String?
+  endTime           String?
+  image             String?
+  theme             String?
+  userCapacity      Int?
+  eventType         String?
+  createdAt         DateTime  @default(now())
+}
+
+// * Everytime we change anything here run migration - "npx prisma migrate dev --name whatevernamehere"
+// * also run - "npx prisma generate"
