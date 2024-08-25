@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ImagePlus } from "lucide-react";
 
 import React, { useState, useRef } from "react";
+import eventImage from "../../public/events/background1.jpeg"
 
 function ImageUpload() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -18,13 +19,14 @@ function ImageUpload() {
       <div className="relative">
         <Image
           src={
-            selectedImage ? URL.createObjectURL(selectedImage) : "/events/background1.jpeg"
+            selectedImage ? URL.createObjectURL(selectedImage) : eventImage
           }
           alt="Uploaded Image"
           width={250}
           height={250}
           className="rounded-[16px] w-full object-cover"
           style={{ aspectRatio: "100/100", objectFit: "cover" }}
+          placeholder="blur"
           onClick={handleImageClick}
         />
         <input

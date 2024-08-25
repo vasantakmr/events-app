@@ -17,7 +17,7 @@ export default function DateSelector({
   const [date, setDate] = useState<Date>();
   const [open, setOpen] = useState(false);
 
-  const handleDateChange = (date: Date, name: string) => {
+  const handleDateChange = (date: Date) => {
     onChange(date, name);
     setOpen(false); // Close the popover when a date is selected
   };
@@ -38,7 +38,7 @@ export default function DateSelector({
           mode="single"
           selected={date}
           onSelect={setDate}
-          onDayClick={(date) => handleDateChange(date, name)}
+          onDayClick={(date) => handleDateChange(date)}
           initialFocus
         />
       </PopoverContent>

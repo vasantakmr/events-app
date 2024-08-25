@@ -16,9 +16,16 @@ import TimeslotSelector from "@/components/other/TimeslotSelector";
 interface FormData {
   title: string;
   description: string;
+  shortDescription?: string;
+  userID?: string;
+  companyID?: string;
+  eventlocation: string;
   startDate: Date | null;
   endDate: Date | null;
-  location: string;
+  image?: string;
+  theme?: string;
+  usersCapacity?: number;
+  eventType?: string;
 }
 
 export default function Component() {
@@ -27,7 +34,7 @@ export default function Component() {
     description: "",
     startDate: null,
     endDate: null,
-    location: "",
+    eventlocation: "",
   });
 
   const handleChange = (
@@ -59,7 +66,7 @@ export default function Component() {
         <h1 className="text-3xl font-bold">Create New Event</h1>
       </header>
       <form
-        className="grid grid-cols-1 md:grid-cols-3 gap-y-6 md:gap-6"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-y-6 sm:gap-6"
         onSubmit={handleSubmit}
       >
         <div className="grid gap-4">
@@ -130,7 +137,7 @@ export default function Component() {
               id="location"
               name="location"
               placeholder="Enter event location"
-              value={formData.location}
+              value={formData.eventlocation}
               onChange={handleChange}
             />
           </div>
