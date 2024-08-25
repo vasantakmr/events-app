@@ -54,7 +54,7 @@ export default function CreatePage() {
       </header>
       <form
         className="grid grid-cols-1 sm:grid-cols-3 gap-y-6 sm:gap-6"
-        onSubmit={handleSubmit}
+        onSubmit={(event) => createEvent(formData, event)}
       >
         <div className="grid gap-4">
           <ImageUpload />
@@ -84,7 +84,7 @@ export default function CreatePage() {
                 rows={4}
                 placeholder="Enter event description"
                 value={formData.description}
-                onChange={(event) => createEvent(formData, event)}
+                onChange={handleChange}
               />
             </div>
           </div>
