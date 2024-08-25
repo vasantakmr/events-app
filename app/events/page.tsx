@@ -31,11 +31,13 @@ export default function EventsPage() {
             </div>
             <div className="p-5">
               <Image
-                src="/youtube.jpg"
+                src="https://firebasestorage.googleapis.com/v0/b/gurucodes-67a76.appspot.com/o/background3.jpeg?alt=media&token=e97c7e70-416e-4428-95be-2f3045a1aea8"
+                blurDataURL="https://firebasestorage.googleapis.com/v0/b/gurucodes-67a76.appspot.com/o/background3.jpeg?alt=media&token=e97c7e70-416e-4428-95be-2f3045a1aea8"
                 alt={event.location}
                 width={250}
                 height={250}
                 className="rounded-lg object-cover"
+                placeholder="blur"
                 style={{ aspectRatio: "100/100", objectFit: "cover" }}
               />
             </div>
