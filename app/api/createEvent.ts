@@ -9,8 +9,8 @@ export const createEvent = async (
   const formValues: FormData = { ...formData };
   const insertEvent = await prisma.event.create({
     data: {
-      name: formData?.title,
-      description: formData?.description,
+      name: formValues?.title,
+      description: formValues?.description,
     },
   });
   if (insertEvent) {
