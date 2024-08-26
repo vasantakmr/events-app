@@ -4,44 +4,60 @@ import { MapPin } from "lucide-react";
 import Image from "next/image";
 import { events } from "@/data/events";
 import Link from "next/link";
+import { absoluteUrl } from "@/lib/utils";
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const getEvents = async () => {
+    try {
+      const eventsResponse = await fetch(absoluteUrl("/api/getEvents"), {
+        method: "GET",
+      });
+
+      const data = await eventsResponse.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching the events:", error);
+      return null;
+    }
+  };
+
+  const eventsNew = await getEvents();
+
   return (
     <div className="max-w-4xl mx-auto p-6 sm:p-10">
       <div className="flex flex-col gap-8">
-        {events.map((event) => (
+        {eventsNew.map((event: any) => (
           <Link href={`/events/${event.id}`} key={event.id}>
-
-          <Card  className="flex shadow transition-all hover:shadow-lg dark:shadow-black border-input ">
-            <div className="grid gap-4 p-4">
-              <div className="grid gap-2">
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <CalendarIcon className="w-5 h-5" />
-                  <span>{event.date}</span>
-                  <ClockIcon className="w-5 h-5" />
-                  <span>{event.time}</span>
+            <Card className="flex shadow transition-all hover:shadow-lg dark:shadow-black border-input ">
+              <div className="grid gap-4 p-4">
+                <div className="grid gap-2">
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <CalendarIcon className="w-5 h-5" />
+                    <span>{event.date}</span>
+                    <ClockIcon className="w-5 h-5" />
+                    <span>{event.time}</span>
+                  </div>
+                  <h2 className="text-2xl font-bold">{event.title}</h2>
                 </div>
-                <h2 className="text-2xl font-bold">{event.title}</h2>
+                <p className="text-muted-foreground">{event.description}</p>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <MapPin className="w-5 h-5" />
+                  <span>{event.location}</span>
+                </div>
               </div>
-              <p className="text-muted-foreground">{event.description}</p>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <MapPin className="w-5 h-5" />
-                <span>{event.location}</span>
+              <div className="p-5">
+                <Image
+                  src={`${event.image}`}
+                  blurDataURL="https://firebasestorage.googleapis.com/v0/b/gurucodes-67a76.appspot.com/o/background3.jpeg?alt=media&token=e97c7e70-416e-4428-95be-2f3045a1aea8"
+                  alt="Event Image"
+                  width={250}
+                  height={250}
+                  className="rounded-lg object-cover"
+                  placeholder="blur"
+                  style={{ aspectRatio: "100/100", objectFit: "cover" }}
+                />
               </div>
-            </div>
-            <div className="p-5">
-              <Image
-                src="https://firebasestorage.googleapis.com/v0/b/gurucodes-67a76.appspot.com/o/background3.jpeg?alt=media&token=e97c7e70-416e-4428-95be-2f3045a1aea8"
-                blurDataURL="https://firebasestorage.googleapis.com/v0/b/gurucodes-67a76.appspot.com/o/background3.jpeg?alt=media&token=e97c7e70-416e-4428-95be-2f3045a1aea8"
-                alt={event.location}
-                width={250}
-                height={250}
-                className="rounded-lg object-cover"
-                placeholder="blur"
-                style={{ aspectRatio: "100/100", objectFit: "cover" }}
-              />
-            </div>
-          </Card>
+            </Card>
           </Link>
         ))}
       </div>

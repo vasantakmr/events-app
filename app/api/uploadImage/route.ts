@@ -1,27 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
-
-
-// const uploadToCloudinary = (
-//   fileUri: string, fileName: string): Promise<UploadResponse> => {
-//   return new Promise((resolve, reject) => {
-//     cloudinary.uploader
-//       .upload(fileUri, {
-//         invalidate: true,
-//         resource_type: "auto",
-//         filename_override: fileName,
-//         folder: "product-images", // any sub-folder name in your cloud
-//         use_filename: true,
-//       })
-//       .then((result) => {
-//         resolve({ success: true, result });
-//       })
-//       .catch((error) => {
-//         reject({ success: false, error });
-//       });
-//   });
-// };
+import { env } from "process";
 
 export async function POST(req: NextRequest) {
-  // your auth check here if required
-  return NextResponse.json({ message: "success!" });
+  const url = `https://api.cloudinary.com/v1_1/${env.CLOUDINARY_CLOUD_NAME}/upload`;
+  const formData = await req.formData();
+  const file = formData.get("file") as File;
+  const fileBuffer = await file.arrayBuffer();
+  const mimeType = file.type;
+  const encoding = "base64";
+  const base64Data = Buffer.from(fileBuffer).toString("base64");
+  const fileUri = "data:" + mimeType + ";" + encoding + "," + base64Data;
+
+  const cloudinaryfd = new FormData();
+  cloudinaryfd.append("file", fileUri);
+  cloudinaryfd.append("upload_preset", "usPreset"); // Replace with your Cloudinary preset
+
+  try {
+    const cloudinaryResponse = await fetch(url, {
+      method: "POST",
+      body: cloudinaryfd,
+    });
+
+    const data = await cloudinaryResponse.json();
+    // File uploaded successfully
+    return NextResponse.json({ imgUrl: data.secure_url }, { status: 200 });
+  } catch (error) {
+    console.error("Error uploading the file:", error);
+    return NextResponse.json(
+      { error: "Failed to upload file" },
+      { status: 500 }
+    );
+  }
 }

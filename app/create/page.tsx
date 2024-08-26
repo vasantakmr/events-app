@@ -7,8 +7,13 @@ import { useState } from "react";
 import DateSelector from "@/components/other/DateSelector";
 import TimeslotSelector from "@/components/other/TimeslotSelector";
 import { FormData } from "@/lib/types";
+import { redirect } from "next/navigation";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function CreatePage() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState<FormData>({
     title: "",
     description: "",
@@ -27,6 +32,13 @@ export default function CreatePage() {
     });
   };
 
+  const handleImageChange = (image: string | null, name: string) => {
+    setFormData({
+      ...formData,
+      [name]: image,
+    });
+  };
+
   const handleDateChange = (date: Date | null, name: string) => {
     setFormData({
       ...formData,
@@ -34,12 +46,8 @@ export default function CreatePage() {
     });
   };
 
-  // const handleSubmit = (event: React.FormEvent) => {
-  //   event.preventDefault();
-  //   const formValues: FormData = { ...formData };
-  // };
-
   const handleSubmit = async (formData: FormData, event: React.FormEvent) => {
+    // TODO: change the button text to a circular loading icon""creating O";
     event.preventDefault();
     try {
       const response = await fetch("/api/createEvent", {
@@ -51,11 +59,11 @@ export default function CreatePage() {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(`Event created with ID: ${data.id}`);
+        toast("Event created.");
+        router.push("/events");
       } else {
         console.log("Failed to add Event");
       }
-      // TODO: Show a toast and then navigate to sucessfully posted the event page/all events page
     } catch (error) {
       console.error("Error creating event:", error);
     }
@@ -68,10 +76,11 @@ export default function CreatePage() {
       </header>
       <form
         className="grid grid-cols-1 sm:grid-cols-3 gap-y-6 sm:gap-6"
+        autoComplete="off"
         onSubmit={(event) => handleSubmit(formData, event)}
       >
         <div className="grid gap-4">
-          <ImageUpload />
+          <ImageUpload name="image" onChange={handleImageChange} />
         </div>
         <div className="grid col-span-2 gap-4">
           <div className="grid gap-2">

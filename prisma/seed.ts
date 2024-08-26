@@ -14,7 +14,6 @@ const main = async () => {
       description: "fun events all across the world",
     },
   });
-  console.log({ event });
 };
 
 main()

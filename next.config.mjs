@@ -11,7 +11,19 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ["firebasestorage.googleapis.com", "cloudinary.com"], // Add your Firebase Storage bucket here
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+        pathname: '**',
+      },
+    ],
+
   },
 };
 

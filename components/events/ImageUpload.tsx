@@ -6,7 +6,13 @@ import { ImagePlus } from "lucide-react";
 import React, { useState, useRef, ChangeEvent } from "react";
 import eventImage from "../../public/events/background1.jpeg";
 
-function ImageUpload() {
+export default function ImageUpload({
+  name,
+  onChange,
+}: {
+  name: string;
+  onChange: (image: string | null, name: string) => void;
+}) {
   const [selectedImage, setSelectedImage] = useState<File | Blob | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -14,30 +20,16 @@ function ImageUpload() {
     fileInputRef.current?.click();
   };
 
-  const uploadStagedFile = async (stagedFile: File | Blob) => {
-    const form = new FormData();
-    form.set("file", stagedFile);
-
-    // here /api/upload is the route of my handler
-    const res = await fetch("/api/uploadImage", {
-      method: "POST",
-      body: form,
-    });
-
-    const data = await res.json();
-
-    // we will return the uploaded image URL from the API to the client
-    console.log(data.imgUrl);
-  };
-
-  function uploadImage(event: ChangeEvent<HTMLInputElement>): void {
+  async function onImageChange(event: ChangeEvent<HTMLInputElement>) {
     setSelectedImage(event.target.files![0]);
+    const file = event.target.files![0];
+    const fileBuffer = await file.arrayBuffer();
+    const mimeType = file.type;
+    const encoding = "base64";
+    const base64Data = Buffer.from(fileBuffer).toString("base64");
+    const fileUri = "data:" + mimeType + ";" + encoding + "," + base64Data;
 
-    try {
-      uploadStagedFile(event.target.files![0]);
-    } catch (error) {
-      console.log("upload failed");
-    }
+    onChange(fileUri, "image");
   }
 
   return (
@@ -45,7 +37,7 @@ function ImageUpload() {
       <div className="relative">
         <Image
           src={selectedImage ? URL.createObjectURL(selectedImage) : eventImage}
-          alt="Uploaded Image"
+          alt="Event Image"
           width={250}
           height={250}
           className="rounded-[16px] w-full object-cover"
@@ -57,7 +49,7 @@ function ImageUpload() {
           type="file"
           accept="image/*"
           ref={fileInputRef}
-          onChange={uploadImage}
+          onChange={onImageChange}
           style={{ display: "none" }}
         />
         <ImagePlus
@@ -69,5 +61,3 @@ function ImageUpload() {
     </div>
   );
 }
-
-export default ImageUpload;
