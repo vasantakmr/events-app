@@ -11,6 +11,7 @@ export default async function EventsPage() {
     try {
       const eventsResponse = await fetch(absoluteUrl("/api/getEvents"), {
         method: "GET",
+        cache: "no-store",
       });
 
       const data = await eventsResponse.json();
@@ -28,27 +29,35 @@ export default async function EventsPage() {
       <div className="flex flex-col gap-8">
         {eventsNew.map((event: any) => (
           <Link href={`/events/${event.id}`} key={event.id}>
-            <Card className="flex shadow transition-all hover:shadow-lg dark:shadow-black border-input ">
+            <Card className="flex justify-between shadow transition-all hover:shadow-lg dark:shadow-black border-input ">
               <div className="grid gap-4 p-4">
                 <div className="grid gap-2">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <CalendarIcon className="w-5 h-5" />
-                    <span>{event.date}</span>
-                    <ClockIcon className="w-5 h-5" />
-                    <span>{event.time}</span>
+                    <span>
+                      {new Date(event.createdAt).toLocaleDateString()}
+                    </span>
+                    <ClockIcon className="w-5 h-5 hidden sm:block" />
+                    <span className="hidden sm:block">
+                      {new Date(event.createdAt).toLocaleTimeString()}
+                    </span>
                   </div>
-                  <h2 className="text-2xl font-bold">{event.title}</h2>
+                  <h2 className="text-2xl font-bold">{event.name}</h2>
                 </div>
-                <p className="text-muted-foreground">{event.description}</p>
+                <p className="text-muted-foreground">
+                  {event.description.length > 128
+                    ? `${event.description.substring(0, 120)}...`
+                    : event.description}
+                </p>
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <MapPin className="w-5 h-5" />
-                  <span>{event.location}</span>
+                  <span>{event.eventlocation}</span>
                 </div>
               </div>
               <div className="p-5">
                 <Image
                   src={`${event.image}`}
-                  blurDataURL="https://firebasestorage.googleapis.com/v0/b/gurucodes-67a76.appspot.com/o/background3.jpeg?alt=media&token=e97c7e70-416e-4428-95be-2f3045a1aea8"
+                  blurDataURL={`${event.image}`}
                   alt="Event Image"
                   width={250}
                   height={250}

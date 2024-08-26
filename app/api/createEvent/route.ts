@@ -20,9 +20,7 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
           endTime: formData.endDate
             ? new Date(formData.endDate).toISOString()
             : null,
-          image:
-            imgUrl ||
-            "https://res.cloudinary.com/dyshrnvl2/image/upload/v1724702157/coxnnhej3co0kgdvqqdk.jpg",
+          image: imgUrl,
           theme: formData.theme || "default",
           userCapacity: formData.usersCapacity,
           eventlocation: formData.eventlocation,
@@ -31,10 +29,16 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
       });
       return NextResponse.json({ id: insertEvent.id });
     } catch (error) {
-      return NextResponse.json({ message: "Failed to add Event in DB", error });
+      return NextResponse.json(
+        { message: "Failed to add Event in DB", error },
+        { status: 500 }
+      );
     }
   } else {
-    return NextResponse.json({ error: "Incorrect Data, Method not allowed" });
+    return NextResponse.json(
+      { error: "Incorrect Data, Method not allowed" },
+      { status: 400 }
+    );
   }
 }
 
@@ -52,7 +56,9 @@ async function uploadImage(imageUri: string) {
     });
 
     const data = await cloudinaryResponse.json();
-    const imgUrl: string = data.secure_url;
+    const imgUrl: string =
+      data.secure_url ||
+      "https://res.cloudinary.com/dyshrnvl2/image/upload/v1724702157/coxnnhej3co0kgdvqqdk.jpg";
     return imgUrl;
   } catch (error) {
     console.error("Error uploading the file:", error);
