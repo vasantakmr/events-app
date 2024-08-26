@@ -25,12 +25,12 @@ model Event {
   userID            String?
   companyID         String?
   eventlocation     String?
-  startTime         String?
-  endTime           String?
+  startTime         DateTime?
+  endTime           DateTime?
   image             String?
   theme             String?
   userCapacity      Int?
-  eventType         String?
+  eventType         String? 
   createdAt         DateTime  @default(now())
 }
 

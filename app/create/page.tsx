@@ -2,18 +2,10 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
 import ImageUpload from "@/components/events/ImageUpload";
 import { useState } from "react";
 import DateSelector from "@/components/other/DateSelector";
 import TimeslotSelector from "@/components/other/TimeslotSelector";
-import { prisma } from "@/lib/prisma";
-import { createEvent } from "../api/createEvent";
 import { FormData } from "@/lib/types";
 
 export default function CreatePage() {
@@ -42,9 +34,30 @@ export default function CreatePage() {
     });
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  // const handleSubmit = (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   const formValues: FormData = { ...formData };
+  // };
+
+  const handleSubmit = async (formData: FormData, event: React.FormEvent) => {
     event.preventDefault();
-    const formValues: FormData = { ...formData };
+    try {
+      const response = await fetch("/api/createEvent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ formData }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(`Event created with ID: ${data.id}`);
+      } else {
+        console.log("Failed to add Event");
+      }
+    } catch (error) {
+      console.error("Error creating event:", error);
+    }
   };
 
   return (
@@ -54,7 +67,7 @@ export default function CreatePage() {
       </header>
       <form
         className="grid grid-cols-1 sm:grid-cols-3 gap-y-6 sm:gap-6"
-        onSubmit={(event) => createEvent(formData, event)}
+        onSubmit={(event) => handleSubmit(formData, event)}
       >
         <div className="grid gap-4">
           <ImageUpload />
