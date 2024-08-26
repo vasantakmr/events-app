@@ -55,6 +55,7 @@ export default function CreatePage() {
       } else {
         console.log("Failed to add Event");
       }
+      // TODO: Show a toast and then navigate to sucessfully posted the event page/all events page
     } catch (error) {
       console.error("Error creating event:", error);
     }
