@@ -60,7 +60,7 @@ export function Navbar() {
         <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
           <form className="ml-auto flex gap-4 md:gap-2 lg:gap-4 flex-1 sm:flex-initial">
             <div className="ml-auto ">
-              <NavbarItem href="/create">
+              <Link href="/create">
                 <Button
                   variant="outline"
                   className="w-full justify-end text-left font-normal"
@@ -68,7 +68,7 @@ export function Navbar() {
                   <CirclePlus className="mr-1 h-4 w-4 -translate-x-1" />
                   Create Event
                 </Button>
-              </NavbarItem>
+              </Link>
             </div>
             <div className="relative overflow-hidden">
               <SearchCommandDialog />
