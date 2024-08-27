@@ -5,6 +5,7 @@ import Image from "next/image";
 import { events } from "@/data/events";
 import Link from "next/link";
 import { absoluteUrl } from "@/lib/utils";
+import { format } from "date-fns";
 
 export const revalidate = 0;
 
@@ -36,11 +37,11 @@ export default async function EventsPage() {
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <CalendarIcon className="w-5 h-5" />
                     <span>
-                      {new Date(event.createdAt).toLocaleDateString()}
+                      {format(new Date(event.createdAt), "PPP")}
                     </span>
                     <ClockIcon className="w-5 h-5 hidden sm:block" />
                     <span className="hidden sm:block">
-                      {new Date(event.createdAt).toLocaleTimeString()}
+                      {format(new Date(event.createdAt), "p")}
                     </span>
                   </div>
                   <h2 className="text-2xl font-bold">{event.name}</h2>
