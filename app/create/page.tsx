@@ -71,9 +71,6 @@ export default function CreatePage() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 sm:p-8 md:p-10">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold">Create New Event</h1>
-      </header>
       <form
         className="grid grid-cols-1 sm:grid-cols-3 gap-y-6 sm:gap-6"
         autoComplete="off"
@@ -114,7 +111,7 @@ export default function CreatePage() {
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
               <label htmlFor="start-date" className="text-sm font-medium">
-                Start Date/Time
+                Start Date
               </label>
               <DateSelector name="startDate" onChange={handleDateChange} />
             </div>
