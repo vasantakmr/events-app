@@ -24,7 +24,7 @@ import { NavbarItem } from "./NavbarItem";
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 flex justify-center h-16 items-center bg-background w-full">
+    <header className="sticky top-0  z-20 flex justify-center h-16 items-center bg-background w-full">
       <div
         className="flex w-full items-center mt-2 gap-4 bg-background px-4 "
         style={{ width: "1000px" }}
