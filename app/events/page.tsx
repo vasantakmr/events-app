@@ -6,12 +6,13 @@ import { events } from "@/data/events";
 import Link from "next/link";
 import { absoluteUrl } from "@/lib/utils";
 
+export const revalidate = 0;
+
 export default async function EventsPage() {
   const getEvents = async () => {
     try {
       const eventsResponse = await fetch(absoluteUrl("/api/getEvents"), {
         method: "GET",
-        cache: "no-store",
       });
 
       const data = await eventsResponse.json();
@@ -57,7 +58,7 @@ export default async function EventsPage() {
               <div className="p-5">
                 <Image
                   src={`${event.image}`}
-                  blurDataURL={`${event.image}`}
+                  blurDataURL="/events/blur.webp"
                   alt="Event Image"
                   width={250}
                   height={250}

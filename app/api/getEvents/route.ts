@@ -5,9 +5,9 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     try {
+      // TODO: change it to startTime after its fixed
       const events = await prisma.event.findMany({
         orderBy: { 
-          // TODO: change it to startTime after its fixed
           createdAt: 'desc',
         },
       });
