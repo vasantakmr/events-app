@@ -5,7 +5,7 @@ export async function getEvent(eventId: string) {
     const event = await prisma.event.findUnique({
       where: { id: eventId },
     });
-    return { event: event };
+    return event;
   } catch (error) {
     console.log("Failed to fetch event: ", error);
   }

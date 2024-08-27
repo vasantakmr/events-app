@@ -4,13 +4,17 @@ import TimeslotSelector from "@/components/other/TimeslotSelector";
 import { FormData } from "@/lib/types";
 import { getEvent } from "@/lib/action";
 import Image from "next/image";
+import Link from "next/link";
 
-export default async function EventDetailsPage({ params }: { params: { slug: string } }) {
+export default async function EventDetailsPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   console.log(params.slug);
 
   const event = await getEvent(params.slug);
-  console.log(event?.event);
-
+  console.log(event);
 
   return (
     <div className="max-w-4xl mx-auto p-6 sm:p-8 md:p-10">
@@ -20,7 +24,7 @@ export default async function EventDetailsPage({ params }: { params: { slug: str
       >
         <div className="grid gap-4">
           <Image
-            src={`${event?.event?.image}`}
+            src={`${event?.image}`}
             alt="Event Image"
             width={250}
             height={250}
@@ -32,13 +36,12 @@ export default async function EventDetailsPage({ params }: { params: { slug: str
         <div className="grid col-span-2 gap-4">
           <div className="grid gap-2">
             <div className="grid gap-2">
-              <div
-                id="name"
-                className="text-3xl font-semibold"
-              >{event?.event?.name}</div>
+              <div id="name" className="text-3xl font-semibold">
+                {event?.name}
+              </div>
             </div>
             <div className="grid gap-2">
-              <div className="py-5">{event?.event?.description}</div>
+              <div className="py-5">{event?.description}</div>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -67,20 +70,22 @@ export default async function EventDetailsPage({ params }: { params: { slug: str
               <TimeslotSelector />
             </div>
           </div>
-          <div className="grid gap-2">
-            <label htmlFor="location" className="text-sm font-medium">
-              Location
-            </label>
-            <Input
-              id="location"
-              name="eventlocation"
-              placeholder="Enter event location"
-            />
-          </div>
-          <div className="flex w-full justify-end mt-8">
-            <Button type="submit" className="w-full">
-              Create Event
-            </Button>
+          <div className="grid gap-2">{event?.eventlocation}</div>
+          <div className="flex w-full  gap-2 mt-8">
+            <Link
+              href={`/events/${event?.id}/edit`}
+              className="w-full"
+              key={event?.id}
+            >
+              <Button className="w-full">Edit Event</Button>
+            </Link>
+            <Link
+              href={`/events/${event?.id}/manage`}
+              className="w-full"
+              key={event?.id}
+            >
+              <Button className="w-full">Manage Event</Button>
+            </Link>
           </div>
         </div>
       </form>
