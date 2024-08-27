@@ -5,7 +5,12 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     try {
-      const events = await prisma.event.findMany();
+      const events = await prisma.event.findMany({
+        orderBy: { 
+          // TODO: change it to startTime after its fixed
+          createdAt: 'desc',
+        },
+      });
       return NextResponse.json(events, { status: 200 });
     } catch (error) {
       return NextResponse.json(
