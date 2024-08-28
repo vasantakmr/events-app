@@ -5,6 +5,7 @@ import { FormData } from "@/lib/types";
 import { getEvent } from "@/lib/action";
 import Image from "next/image";
 import Link from "next/link";
+import { format } from "date-fns";
 
 export default async function EventDetailsPage({
   params,
@@ -46,29 +47,17 @@ export default async function EventDetailsPage({
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <label htmlFor="start-date" className="text-sm font-medium">
-                Start Date
-              </label>
+              {format(event?.startTime ||new Date(), "PPPp")}
             </div>
-            <div className="grid gap-2">
-              <label htmlFor="start-time" className="text-sm font-medium">
-                Start Time
-              </label>
-              <TimeslotSelector />
-            </div>
+            
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <label htmlFor="end-date" className="text-sm font-medium">
+              {/* <label htmlFor="end-date" className="text-sm font-medium">
                 End Date
-              </label>
+              </label> */}
             </div>
-            <div className="grid gap-2">
-              <label htmlFor="end-time" className="text-sm font-medium">
-                End Time
-              </label>
-              <TimeslotSelector />
-            </div>
+            
           </div>
           <div className="grid gap-2">{event?.eventlocation}</div>
           <div className="flex w-full  gap-2 mt-8">
