@@ -11,8 +11,41 @@ datasource db {
 model User {
   id       String @id @default(uuid())
   email    String @unique
-  password String
+  emailVerified DateTime?
   username String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  // events     Events[]
+  //regestered Register[]
+  sessions Session[]
+  VerificationToken VerificationToken[]
+
+  @@map("users")
+}
+
+model Session{
+  id String @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  expires DateTime
+  handle String @unique
+  userId String @unique @map("user_id")
+  sessionToken String @unique @map("session_token")
+  user User? @relation(fields: [userId],references:[id])
+
+  @@map("sessions")
+}
+
+model VerificationToken{
+  id String @id @default(uuid())
+  token String @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  expires DateTime
+  userId String?
+  user User? @relation(fields: [userId],references: [id])
+
+  @@map("verificaton_token")
 }
 
 // TODO: We should have a company table to add the Company ID as forieng key 
