@@ -47,9 +47,8 @@ export default async function EventDetailsPage({
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              {format(event?.startTime ||new Date(), "PPPp")}
+              {format(event?.startTime || new Date(), "PPPp")}
             </div>
-            
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
@@ -57,10 +56,18 @@ export default async function EventDetailsPage({
                 End Date
               </label> */}
             </div>
-            
           </div>
           <div className="grid gap-2">{event?.eventlocation}</div>
-          <div className="flex w-full  gap-2 mt-8">
+          <div className="grid gap-2">
+            <Link
+              href={`/events/${event?.id}/manage`}
+              className="w-full"
+              key={event?.id}
+            >
+              <Button className="w-full">Register Event</Button>
+            </Link>
+          </div>
+          <div className="flex w-full  gap-2 ">
             <Link
               href={`/events/${event?.id}/edit`}
               className="w-full"
