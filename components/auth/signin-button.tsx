@@ -37,7 +37,8 @@ export async function SignIn() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        {/* // TODO: cant be too big to trim this later*/}
+        <DropdownMenuLabel>{session?.user?.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
