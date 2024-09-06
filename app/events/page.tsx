@@ -46,7 +46,7 @@ export default async function EventsPage() {
                   alt="Event Image"
                   width={250}
                   height={250}
-                  className="rounded-lg object-cover md:max-w-60 md:max-h-60 max-w-24 max-h-24"
+                  className="rounded-lg object-cover md:max-w-52 md:max-h-52 max-w-24 max-h-24"
                   placeholder="blur"
                   style={{ aspectRatio: "100/100", objectFit: "cover" }}
                 />
