@@ -1,6 +1,8 @@
 import CreateEventPage from "@/components/pages/createEventPage";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default async function ClientPage() {
   const session = await auth();
@@ -18,5 +20,9 @@ export default async function ClientPage() {
     );
   }
 
-  return <CreateEventPage />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <CreateEventPage />
+    </Suspense>
+  );
 }

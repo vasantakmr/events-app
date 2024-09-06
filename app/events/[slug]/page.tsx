@@ -1,17 +1,24 @@
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import TimeslotSelector from "@/components/other/TimeslotSelector";
-import { FormData } from "@/lib/types";
 import { getEvent } from "@/lib/action";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
+import { Suspense } from "react";
+import Loading from "./loading";
 
-export default async function EventDetailsPage({
+export default function EventDetailsPage({
   params,
 }: {
   params: { slug: string };
 }) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <EventDetails params={params} />
+    </Suspense>
+  );
+}
+
+async function EventDetails({ params }: { params: { slug: string } }) {
   console.log(params.slug);
 
   const event = await getEvent(params.slug);
