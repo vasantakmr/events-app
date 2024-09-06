@@ -10,6 +10,7 @@ import {
   CreditCard,
   Settings,
   SquarePlus,
+  TicketCheck,
   User,
 } from "lucide-react";
 
@@ -101,11 +102,13 @@ export function SearchCommandDialog() {
               <span>Billing</span>
               <CommandShortcut>⌘B</CommandShortcut>
             </CommandItem>
-            <CommandItem>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
-              <CommandShortcut>⌘S</CommandShortcut>
-            </CommandItem>
+            <Link href="/my-events">
+              <CommandItem>
+                <TicketCheck className="mr-2 h-4 w-4" />
+                <span>My Events</span>
+                <CommandShortcut>⌘S</CommandShortcut>
+              </CommandItem>
+            </Link>
           </CommandGroup>
         </CommandList>
       </CommandDialog>
