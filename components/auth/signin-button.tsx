@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CircleUser } from "lucide-react";
+import { SignOut } from "./signout-button";
 
 export async function SignIn() {
   const session = await auth();
@@ -41,7 +42,9 @@ export async function SignIn() {
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem>
+          <SignOut />
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
