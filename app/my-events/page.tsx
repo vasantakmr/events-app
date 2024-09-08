@@ -18,12 +18,12 @@ export default async function MyEventsPage() {
         <Tabs defaultValue="account" className="w-full">
           <TabsList className="grid w-[400px] grid-cols-2">
             <TabsTrigger value="account">Upcoming</TabsTrigger>
-            <TabsTrigger value="password">Past Events</TabsTrigger>
+            <TabsTrigger value="password">Past</TabsTrigger>
           </TabsList>
           <TabsContent value="account">
             <div className="flex flex-col gap-8">
               {events?.map((event: any) => (
-                <Link href={`/events/${event.id}`} key={event.id}>
+                <Link href={`/events/${event.id}`} key={`${event?.id}-upcoming`}>
                   <Card className="flex justify-between shadow transition-all hover:shadow-lg dark:shadow-black border-input ">
                     <div className="grid gap-4 p-4">
                       <div className="grid gap-2">
@@ -72,7 +72,7 @@ export default async function MyEventsPage() {
               {events
                 ?.filter((event) => !event.eventlocation)
                 ?.map((event: any) => (
-                  <Link href={`/events/${event.id}`} key={event.id}>
+                  <Link href={`/events/${event.id}`} key={`${event?.id}-past`}>
                     <Card className="flex justify-between shadow transition-all hover:shadow-lg dark:shadow-black border-input ">
                       <div className="grid gap-4 p-4">
                         <div className="grid gap-2">

@@ -15,7 +15,7 @@ export default async function EventsPage() {
     <div className="max-w-4xl mx-auto p-6 sm:p-10">
       <div className="flex flex-col gap-8">
         {events?.map((event: any) => (
-          <Link href={`/events/${event.id}`} key={event.id}>
+          <Link href={`/events/${event.id}`} key={`${event?.id}-eachEvent`}>
             <Card className="flex justify-between shadow transition-all hover:shadow-lg dark:shadow-black border-input ">
               <div className="grid gap-4 p-4">
                 <div className="grid gap-2">

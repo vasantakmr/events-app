@@ -67,9 +67,9 @@ async function EventDetails({ params }: { params: { slug: string } }) {
           <div className="grid gap-2">{event?.eventlocation}</div>
           <div className="grid gap-2">
             <Link
-              href={`/events/${event?.id}/manage`}
+              href={`/events/${event?.id}/register`}
               className="w-full"
-              key={event?.id}
+              key={`${event?.id}-register`}
             >
               <Button className="w-full">Register Event</Button>
             </Link>
@@ -78,14 +78,14 @@ async function EventDetails({ params }: { params: { slug: string } }) {
             <Link
               href={`/events/${event?.id}/edit`}
               className="w-full"
-              key={event?.id}
+              key={`${event?.id}-edit`}
             >
               <Button className="w-full">Edit Event</Button>
             </Link>
             <Link
               href={`/events/${event?.id}/manage`}
               className="w-full"
-              key={event?.id}
+              key={`${event?.id}-manage`}
             >
               <Button className="w-full">Manage Event</Button>
             </Link>
